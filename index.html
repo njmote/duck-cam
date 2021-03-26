@@ -1,1 +1,33 @@
-<h1>Duck Cam</h1>
+<html>
+    <head>
+        <script src="hls.js"></script>
+
+
+        
+    </head>
+    <body>
+        <h1>Duck Cam</h1>
+        <video id="video"></video>
+
+
+        <script>
+            if (Hls.isSupported()) {
+              var video = document.getElementById('video');
+              var hls = new Hls();
+              // bind them together
+              hls.attachMedia(video);
+              hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+                console.log('video and hls.js are now bound together !');
+                hls.loadSource('https://b-35e552df.kinesisvideo.us-west-2.amazonaws.com/hls/v1/getHLSMasterPlaylist.m3u8?SessionToken=CiAGiCAiEsxn2JExSYq-VaSA--fjmCtItD_IrHPTCqUwthIQNTI6tQW3nYFj1SQg73CK0BoZHXg7lSF1INUCLgC1boLzDJTdS7bvGyI2wyIgvObzdxPwnnDa97tS2JbF1ZSBeRPVnkR2Sc9cKaK1VB4~');
+                hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+                  console.log(
+                    'manifest loaded, found ' + data.levels.length + ' quality level'
+                  );
+                });
+              });
+            }
+          </script>
+
+    </body>
+</html>
+
