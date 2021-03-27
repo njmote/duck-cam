@@ -1,76 +1,78 @@
 <html>
     <head>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MHMKPB18DM"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MHMKPB18DM"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-    gtag('config', 'G-MHMKPB18DM');
-    </script>
+        gtag('config', 'G-MHMKPB18DM');
+        </script>
 
-    <!--------------------------------------------------------------------------
-      --                      videojs-contrib-hls setup                       --
-      ------------------------------------------------------------------------!>
+        <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
 
-    <!--
-      -- Make sure to include the video.js CSS. This could go in
-      -- the <head>, too.
-      -->
-      <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+        <style>
+            img:hover {
+            /* Start the shake animation and make the animation last for 0.5 seconds */
+            animation: shake 0.5s;
 
-      <!--
-        -- Include video.js and videojs-contrib-hls in your page
-        -->
-  
-      <script src="https://unpkg.com/video.js/dist/video.js"></script>
-      <script src="https://unpkg.com/videojs-flash/dist/videojs-flash.js"></script>
-      <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
-  
-      <style>
-        img:hover {
-        /* Start the shake animation and make the animation last for 0.5 seconds */
-        animation: shake 0.5s;
+            /* When the animation is finished, start again */
+            animation-iteration-count: infinite;
+            }
 
-        /* When the animation is finished, start again */
-        animation-iteration-count: infinite;
-        }
-
-        @keyframes shake {
-        0% { transform: translate(1px, 1px) rotate(0deg); }
-        10% { transform: translate(-1px, -2px) rotate(-1deg); }
-        20% { transform: translate(-3px, 0px) rotate(1deg); }
-        30% { transform: translate(3px, 2px) rotate(0deg); }
-        40% { transform: translate(1px, -1px) rotate(1deg); }
-        50% { transform: translate(-1px, 2px) rotate(-1deg); }
-        60% { transform: translate(-3px, 1px) rotate(0deg); }
-        70% { transform: translate(3px, 1px) rotate(-1deg); }
-        80% { transform: translate(-1px, -1px) rotate(1deg); }
-        90% { transform: translate(1px, 2px) rotate(0deg); }
-        100% { transform: translate(1px, -2px) rotate(-1deg); }
-        }
-      </style>
+            @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+            }
+        </style>
 
         
     </head>
     <body>
         <h1 style="font-family: monospace;">Duck Cam</h1>
-        <video id=example-video width=960 height=540 class="video-js vjs-default-skin" controls>
-            <source
-               src="https://b-35e552df.kinesisvideo.us-west-2.amazonaws.com/hls/v1/getHLSMasterPlaylist.m3u8?SessionToken=CiAGiCAiEsxn2JExSYq-VaSA--fjmCtItD_IrHPTCqUwthIQNTI6tQW3nYFj1SQg73CK0BoZHXg7lSF1INUCLgC1boLzDJTdS7bvGyI2wyIgvObzdxPwnnDa97tS2JbF1ZSBeRPVnkR2Sc9cKaK1VB4~"
-               type="application/x-mpegURL">
-          </video>
-          <script src="video.js"></script>
-          <script src="videojs.hls.min.js"></script>
+        <video-js id="my_video_1" class="vjs-default-skin" controls preload="auto" width="960" height="540">
+            <source src="https://b-35e552df.kinesisvideo.us-west-2.amazonaws.com/hls/v1/getHLSMasterPlaylist.m3u8?SessionToken=CiAGiCAiEsxn2JExSYq-VaSA--fjmCtItD_IrHPTCqUwthIQNTI6tQW3nYFj1SQg73CK0BoZHXg7lSF1INUCLgC1boLzDJTdS7bvGyI2wyIgvObzdxPwnnDa97tS2JbF1ZSBeRPVnkR2Sc9cKaK1VB4~"
+            type="application/x-mpegURL">
+          </video-js>
+          
+          <script src="https://unpkg.com/video.js/dist/video.js"></script>
+          <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.js"></script>
+          
           <script>
-          var player = videojs('example-video');
-          player.play();
+            var player = videojs('my_video_1');
           </script>
         
-        <img src="drake-duck.png" style="position: absolute; top:540; left:950; max-width: 100px;">
+        <img id="drake-duck" src="drake-duck.png" style="position: absolute; top:540; left:950; max-width: 100px;">
 
+
+
+        <!-- Night time -->
+        <script>
+            let time_a_day = new Date().getHours()
+            console.log(time_a_day)
+
+            if(time_a_day >= 20 || time_a_day <=7){
+            
+                console.log('its night')
+            
+                document.getElementById('drake-duck').src = "https://njmote.github.io/duck-cam/drake-duck-night.png"
+            
+            }else{
+                console.log('its day')
+
+            }
+        </script>
     </body>
 </html>
 
