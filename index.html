@@ -53,10 +53,8 @@
           <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.js"></script>
           
           <script>
-            var player = videojs('my_video_1', {liveui: true});
+            var player = videojs('my_video_1', {loop: false, liveui: true, autoplay: 'muted', poster: 'https://njmote.github.io/duck-cam/drake-duck-night.png'});
 
-            player.autoplay('muted');
-            player.poster('https://njmote.github.io/duck-cam/drake-duck-night.png');
           </script>
         
         <img id="drake-duck" src="drake-duck.png" style="position: absolute; top:540; left:950; max-width: 100px;">
