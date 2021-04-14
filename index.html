@@ -45,7 +45,7 @@
     <body>
         <h1 style="font-family: monospace;">Duck Cam</h1>
         <video-js id="my_video_1" class="vjs-default-skin" controls preload="auto" width="960" height="540" >
-            <source src="https://b-35e552df.kinesisvideo.us-west-2.amazonaws.com/hls/v1/getHLSMasterPlaylist.m3u8?SessionToken=CiAXEb__R4a25WRD_kqMS-99UWfapkMiZVFVjzEq1dpcsRIQLIiLJn2yJkavZQPcd8DwRBoZXZcfMnDc0MLpp85NBZ58GfTLEtgX-7yUIyIgWGnyG78cYGEf8ocKQSICYZXhDR2vLuECiT0tayoovYQ~"
+            <source id="hls-source" src="https://b-35e552df.kinesisvideo.us-west-2.amazonaws.com/hls/v1/getHLSMasterPlaylist.m3u8?SessionToken=CiB9d81kztN0QObq8VYtxxd1728VKTXWr5E60Ayov41_uxIQdK7Awq1mKZDSKDRLel_hyBoZ6IqbBLwYdutcL6KUgRZN0xBpVXXkTeRd2yIgHeIvH6TqPUQcFNt87_G5IPC3FjtLIVfxVRho6vGkD7g~"
             type="application/x-mpegURL">
           </video-js>
           
@@ -53,7 +53,28 @@
           <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.js"></script>
           
           <script>
-            var player = videojs('my_video_1', {loop: false, liveui: true, autoplay: 'muted', poster: 'https://njmote.github.io/duck-cam/drake-duck-night.png'});
+            
+
+            new_url = fetch('https://duck-cam-public.s3-us-west-2.amazonaws.com/duck-cam-hls.json', {
+                //mode:"no-cors",
+                method:"GET",
+                headers: new Headers(
+                   {"Content-Type": "application/json",
+                    "Accept":"application/json"}
+                )
+
+            })
+            .then(response => response.json())
+            .then(function(data) {
+                var player = videojs('my_video_1', {loop: false, liveui: true, autoplay: 'muted', poster: 'https://njmote.github.io/duck-cam/drake-duck-night.png'});
+                player.src(data.url);
+                // set src track corresponding to new movie //
+                player.load();
+                player.play();
+
+            })
+
+
 
           </script>
         
