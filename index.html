@@ -11,91 +11,68 @@
         gtag('config', 'G-TDGZM6GSPY');
         </script>
 
-        <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
-
         <style>
-            img:hover {
-            /* Start the shake animation and make the animation last for 0.5 seconds */
-            animation: shake 0.5s;
+            body {
+                font-family: monospace;
+                text-align: center;
+                padding: 40px;
+                background-color: #f0f8ff;
+            }
 
-            /* When the animation is finished, start again */
-            animation-iteration-count: infinite;
+            .offline-message {
+                max-width: 600px;
+                margin: 40px auto;
+                padding: 30px;
+                background-color: #fff8dc;
+                border-radius: 15px;
+                border: 3px dashed #f4a460;
+            }
+
+            .offline-message p {
+                font-size: 1.3em;
+                color: #555;
+                line-height: 1.6;
+            }
+
+            img:hover {
+                animation: shake 0.5s;
+                animation-iteration-count: infinite;
             }
 
             @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            10% { transform: translate(-1px, -2px) rotate(-1deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
-            30% { transform: translate(3px, 2px) rotate(0deg); }
-            40% { transform: translate(1px, -1px) rotate(1deg); }
-            50% { transform: translate(-1px, 2px) rotate(-1deg); }
-            60% { transform: translate(-3px, 1px) rotate(0deg); }
-            70% { transform: translate(3px, 1px) rotate(-1deg); }
-            80% { transform: translate(-1px, -1px) rotate(1deg); }
-            90% { transform: translate(1px, 2px) rotate(0deg); }
-            100% { transform: translate(1px, -2px) rotate(-1deg); }
+                0% { transform: translate(1px, 1px) rotate(0deg); }
+                10% { transform: translate(-1px, -2px) rotate(-1deg); }
+                20% { transform: translate(-3px, 0px) rotate(1deg); }
+                30% { transform: translate(3px, 2px) rotate(0deg); }
+                40% { transform: translate(1px, -1px) rotate(1deg); }
+                50% { transform: translate(-1px, 2px) rotate(-1deg); }
+                60% { transform: translate(-3px, 1px) rotate(0deg); }
+                70% { transform: translate(3px, 1px) rotate(-1deg); }
+                80% { transform: translate(-1px, -1px) rotate(1deg); }
+                90% { transform: translate(1px, 2px) rotate(0deg); }
+                100% { transform: translate(1px, -2px) rotate(-1deg); }
             }
         </style>
         <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
         <link rel="manifest" href="site.webmanifest">
-        <meta http-equiv="refresh" content="120" />
     </head>
     <body>
-        <h1 style="font-family: monospace;">Duck Cam</h1>
-        <video-js id="my_video_1" class="vjs-default-skin" controls preload="auto" width="960" height="540" >
-            <source id="hls-source" src="https://b-35e552df.kinesisvideo.us-west-2.amazonaws.com/hls/v1/getHLSMasterPlaylist.m3u8?SessionToken=CiB9d81kztN0QObq8VYtxxd1728VKTXWr5E60Ayov41_uxIQdK7Awq1mKZDSKDRLel_hyBoZ6IqbBLwYdutcL6KUgRZN0xBpVXXkTeRd2yIgHeIvH6TqPUQcFNt87_G5IPC3FjtLIVfxVRho6vGkD7g~"
-            type="application/x-mpegURL">
-          </video-js>
-          
-          <script src="https://unpkg.com/video.js/dist/video.js"></script>
-          <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.js"></script>
-          
-          <script>
-            
+        <h1>Duck Cam</h1>
 
-            new_url = fetch('https://duck-cam-public.s3-us-west-2.amazonaws.com/duck-cam-hls.json', {
-                //mode:"no-cors",
-                method:"GET",
-                headers: new Headers(
-                   {"Content-Type": "application/json",
-                    "Accept":"application/json"}
-                )
+        <img id="drake-duck" src="drake-duck.png" style="max-width: 150px; margin: 20px;">
 
-            })
-            .then(response => response.json())
-            .then(function(data) {
-                var player = videojs('my_video_1', {loop: false, liveui: true, autoplay: 'muted', poster: 'https://njmote.github.io/duck-cam/drake-duck-night.png'});
-                player.src(data.url);
-                // set src track corresponding to new movie //
-                player.load();
-                player.play();
+        <div class="offline-message">
+            <p>The ducks have waddled off for now!</p>
+            <p>Our feathered friends are taking a break from the spotlight. Quack back later to catch them in action!</p>
+        </div>
 
-            })
-
-
-
-          </script>
-        
-        <img id="drake-duck" src="drake-duck.png" style="position: absolute; top:540; left:950; max-width: 100px;">
-
-        <!--<h3>Experiencing Technical Difficulties... </h3>-->
-
-        <!-- Night time -->
+        <!-- Night time duck swap -->
         <script>
-            let time_a_day = new Date().getHours()
-            console.log(time_a_day)
-
-            if(time_a_day >= 20 || time_a_day <=7){
-            
-                console.log('its night')
-            
-                document.getElementById('drake-duck').src = "https://njmote.github.io/duck-cam/drake-duck-night.png"
-            
-            }else{
-                console.log('its day')
-
+            let time_a_day = new Date().getHours();
+            if (time_a_day >= 20 || time_a_day <= 7) {
+                document.getElementById('drake-duck').src = "https://njmote.github.io/duck-cam/drake-duck-night.png";
             }
         </script>
     </body>
